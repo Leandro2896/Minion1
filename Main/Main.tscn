@@ -1,0 +1,52 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://Player/Player.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Ruby/Ruby.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Main/puntuacion.gd" type="Script" id=3]
+[ext_resource path="res://Main/Main.gd" type="Script" id=4]
+[ext_resource path="res://dodge_assets/fonts/Xolonium-Regular.ttf" type="DynamicFontData" id=5]
+[ext_resource path="res://agujeros negros/agujeros.tscn" type="PackedScene" id=7]
+
+[sub_resource type="DynamicFont" id=1]
+size = 64
+font_data = ExtResource( 5 )
+
+[node name="Main" type="Node2D"]
+script = ExtResource( 4 )
+Ruby = ExtResource( 2 )
+
+[node name="Player" parent="." instance=ExtResource( 1 )]
+position = Vector2( 377.052, 322.325 )
+
+[node name="puntuacion" type="Node" parent="."]
+script = ExtResource( 3 )
+
+[node name="Score" type="Label" parent="puntuacion"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -22.5
+margin_right = 22.5
+margin_bottom = 78.0
+custom_fonts/font = SubResource( 1 )
+text = "0"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ContenedorDeRubys" type="Node" parent="."]
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 3.0
+autostart = true
+
+[node name="agujero " parent="." instance=ExtResource( 7 )]
+position = Vector2( 77.3014, -1.32895 )
+
+[node name="agujero2" parent="." instance=ExtResource( 7 )]
+position = Vector2( 326.488, -344.802 )
+
+[node name="agujero3" parent="." instance=ExtResource( 7 )]
+position = Vector2( -449.328, -187.136 )
+[connection signal="morir" from="Player" to="." method="_on_Player_morir"]
+[connection signal="recogida" from="Player" to="." method="_on_Player_recogida"]
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
